@@ -15,6 +15,9 @@ export default function Header() {
   const path = useLocation().pathname;
   const { currentUser } = useSelector((state) => state.user);
 
+  console.log(currentUser);
+  
+
   return (
     <Navbar className="border-b-2">
       <Link
@@ -59,7 +62,7 @@ export default function Header() {
             </Dropdown.Header>
 
             <Link to={"/dashboard?tab=profile"}>
-              {" "}
+             
               <DropdownItem>profile</DropdownItem>
             </Link>
             <Dropdown.Divider />

@@ -60,28 +60,26 @@ export default function FooterCom() {
           </div>
         </div>
         <Footer.Divider />
-        <div className="w-full sm:flex sm:items-center sm:justify-between">
-          <Footer.Copyright
-            href="#"
-            by="mariyambi blog"
-            year={new Date().getFullYear()}
+        <Footer.Copyright
+          href="#"
+          by="Rashid blog"
+          year={new Date().getFullYear()}
+        />
+        <div className="flex gap-6 sm:mt-0 mt-4 sm:justify-center">
+          <Footer.Icon
+            href="https://www.facebook.com/mariyambi/"
+            icon={BsFacebook}
           />
-          <div className="flex gap-6 sm:mt-0 mt-4 sm:justify-center">
-            <Footer.Icon
-              href="https://www.facebook.com/maryambi/"
-              icon={BsFacebook}
-            />
-            <Footer.Icon
-              href="https://www.instagram.com/maryambi/"
-              icon={BsInstagram}
-            />
-            <Footer.Icon
-              href="https://www.linkedin.com/in/mariyambi/"
-              icon={BsLinkedin}
-            />
-            <Footer.Icon href="https://github.com/mariyambi" icon={BsGithub} />
-            <Footer.Icon href="#" icon={BsTwitter} />
-          </div>
+          <Footer.Icon
+            href="https://www.instagram.com/mariyambi/"
+            icon={BsInstagram}
+          />
+          <Footer.Icon
+            href="https://www.linkedin.com/in/mariyambi/"
+            icon={BsLinkedin}
+          />
+          <Footer.Icon href="https://github.com/mariyambi" icon={BsGithub} />
+          <Footer.Icon href="#" icon={BsTwitter} />
         </div>
       </div>
     </Footer>

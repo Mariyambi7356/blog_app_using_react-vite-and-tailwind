@@ -11,7 +11,7 @@ import {
 import { app } from "../firebase";
 import { CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
-import {useNavigate} from 'react-router-dom'
+import { useNavigate } from "react-router-dom";
 
 export default function CreatePost() {
   const [file, setFile] = useState(null);
@@ -19,7 +19,7 @@ export default function CreatePost() {
   const [imageUploadError, setImageUploadError] = useState(null);
   const [formData, setFormData] = useState({});
   const [publishError, setPublishError] = useState(null);
-  const navigate=useNavigate()
+  const navigate = useNavigate();
   const handleUploadImage = async () => {
     try {
       if (!file) {
@@ -74,7 +74,7 @@ export default function CreatePost() {
 
       if (res.ok) {
         setPublishError(data.message);
-        navigate(`/post/${data.slug}`)
+        navigate(`/post/${data.slug}`);
       }
     } catch (error) {
       setPublishError("Something went wrong");
@@ -160,9 +160,11 @@ export default function CreatePost() {
         <Button type="submit" gradientDuoTone="purpleToPink">
           Publish
         </Button>
-        {
-          publishError && <Alert className="mt-5" color='failure'>{publishError}</Alert>
-        }
+        {publishError && (
+          <Alert className="mt-5" color="failure">
+            {publishError}
+          </Alert>
+        )}
       </form>
     </div>
   );

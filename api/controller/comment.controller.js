@@ -1,4 +1,4 @@
-import { errorHandler } from "../utils/error.js";
+
 
 import Comment from '../models/comment.models.js'
 

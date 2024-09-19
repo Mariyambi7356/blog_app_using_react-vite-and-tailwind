@@ -4,8 +4,9 @@ import {
   createComment,
   deleteComment,
   editComment,
-  getcomments,
+ 
   getPostComments,
+  getcomments,
   likeComment,
 } from "../controller/comment.controller.js";
 

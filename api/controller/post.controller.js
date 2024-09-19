@@ -11,7 +11,7 @@ export const create = async (req, res, next) => {
     .split(" ")
     .join("-")
     .toLowerCase()
-    .replace(/[^a-zA-Z0-9-]/g, " ");
+    .replace(/[^a-zA-Z0-9-]/g, "");
 
   const newPost = new Post({
     ...req.body,
@@ -19,8 +19,8 @@ export const create = async (req, res, next) => {
     userId: req.user.id,
   });
   try {
-    const savePost = await newPost.save();
-    res.status(201).json(savePost);
+    const savedPost = await newPost.save();
+    res.status(201).json(savedPost);
   } catch (error) {
     next(error);
   }
@@ -36,10 +36,10 @@ export const getposts = async (req, res, next) => {
       ...(req.query.category && { category: req.query.category }),
       ...(req.query.slug && { slug: req.query.slug }) /**This is Noded point */,
       ...(req.query.postId && { _id: req.query.postId }),
-      ...(req.query.searchTeam && {
+      ...(req.query.searchTerm  && {
         $or: [
-          { title: { $regex: req.query.searchTeam, $option: "i" } },
-          { content: { $regex: req.query.searchTeam, $option: "i" } },
+          { title: { $regex: req.query.searchTerm, $option: "i" } },
+          { content: { $regex: req.query.searchTerm, $option: "i" } },
         ],
       }),
     })
@@ -61,7 +61,11 @@ export const getposts = async (req, res, next) => {
       createdAt: { $gte: oneMonthAgo },
     });
 
-    res.status(200).json({ posts, totalPosts, lastMonthPosts });
+    res.status(200).json({
+      posts,
+      totalPosts,
+      lastMonthPosts,
+    });
   } catch (error) {
     next(error);
   }
@@ -69,7 +73,7 @@ export const getposts = async (req, res, next) => {
 
 export const deletepost = async (req, res, next) => {
   if (!req.user.isAdmin || req.user.id !== req.params.userId) {
-    return next(errorHandler(403, "You are not allowed to delete this post"));
+  return next(errorHandler(403, "You are not allowed to update this post"));
   }
   try {
     await Post.findByIdAndDelete(req.params.postId);
@@ -81,7 +85,7 @@ export const deletepost = async (req, res, next) => {
 
 export const updatepost = async (req, res, next) => {
   if (!req.user.isAdmin || req.user.id !== req.params.userId) {
-    return next(errorHandler(403, "You are not alllowed to update this post"));
+    return next(errorHandler(403, "You are not allowed to update this post"));
   }
   try {
     const updatedPost = await Post.findByIdAndUpdate(

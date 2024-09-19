@@ -5,9 +5,11 @@ import dotenv from "dotenv";
 import userRouter from "./routes/user.route.js";
 import authRouter from "./routes/auth.route.js";
 import postRoutes from "./routes/post.route.js";
-import commentRoutes from './routes/comment.route.js'
+import commentRoutes from "./routes/comment.route.js";
 import cookieParser from "cookie-parser";
+import path from "path";
 
+const __dirname = path.resolve();
 const app = express();
 dotenv.config();
 
@@ -20,12 +22,21 @@ app.use(cors({ origin: true }));
 app.use("/api/user", userRouter);
 app.use("/api/auth", authRouter);
 app.use("/api/post", postRoutes);
-app.use("/api/comment",commentRoutes)
+app.use("/api/comment", commentRoutes);
+
+app.use(express.static(path.join(__dirname, "/client/dist")));
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "client", "dist", "index.html"));
+});
 // Error Handling Middleware
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;
   const message = err.message || "Internal server error";
-  res.status(statusCode).json({ success: false, statusCode, message });
+  res.status(statusCode).json({
+    success: false,
+    statusCode,
+    message,
+  });
 });
 
 // MongoDB Connection
